@@ -1,0 +1,29 @@
+.openclosed .datepicker{width: 100px;}
+.openclosed fieldset *,
+.wrap.openclosed .dashicons {vertical-align: middle;}
+.openclosed .info {float:right;}
+
+.openclosed .subsubsub li:before {content:"|"; display:inlin-block; margin-right:3px;}
+.openclosed .subsubsub li:first-child:before {display:none;}
+
+.openclosed .nav-tab{vertical-align: top;}
+.openclosed .tab{display:none;}
+.openclosed .tab.active{display:block; margin-top:15px;}
+.openclosed .small{font-size:11px;}
+
+.openclosed .dashicons-plus-alt:before {
+    content: "\f502";
+}
+
+.openclosed .dashicons-yes {
+    color:#080;
+}
+.openclosed .dashicons-no {
+    color:#800;
+}
+.openclosed .dashicons-yes {
+    color:#080;
+}
+.openclosed .dashicons.unsaved:after {
+    content:"*";
+}
