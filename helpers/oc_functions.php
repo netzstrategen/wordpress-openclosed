@@ -137,38 +137,8 @@ function oc_checkExtraDates($ocData)
     return $toReturn;
 }
 
-function oc_calcNextDate($currentYear, $currentMonth, $currentDay, $k)
-{
-    if ($currentMonth == 1 or $currentMonth == 3 or $currentMonth == 5 or $currentMonth == 7 or $currentMonth == 8 or $currentMonth == 10 or $currentMonth == 12) {
-        if (($currentDay + $k) > 31) {
-            if ($currentMonth == 12) {
-                $toReturn = ($currentYear + 1) . '-01-' . str_pad(($currentDay + $k) & 31, 2, 0, STR_PAD_LEFT);
-            } else {
-                $toReturn = $currentYear . '-' . str_pad($currentMonth + 1, 2, 0, STR_PAD_LEFT) . '-' . str_pad(($currentDay + $k) % 31, 2, 0, STR_PAD_LEFT);
-            }
-        } else {
-            $toReturn = $currentYear . '-' . str_pad($currentMonth, 2, 0, STR_PAD_LEFT) . '-' . str_pad($currentDay + $k, 2, 0, STR_PAD_LEFT);
-        }
-    } else if ($currentMonth == 2) {
-        if (($currentDay + $k) > 28) {
-            $toReturn = $currentYear . '-' . str_pad($currentMonth + 1, 2, 0, STR_PAD_LEFT) . '-' . str_pad(($currentDay + $k) % 28, 2, 0, STR_PAD_LEFT);
-        } else {
-            $toReturn = $currentYear . '-' . str_pad($currentMonth, 2, 0, STR_PAD_LEFT) . '-' . str_pad($currentDay + $k, 2, 0, STR_PAD_LEFT);
-        }
-    } else {
-        if (($currentDay + $k) > 30) {
-            $toReturn = $currentYear . '-' . str_pad($currentMonth + 1, 2, 0, STR_PAD_LEFT) . '-' . str_pad(($currentDay + $k) % 30, 2, 0, STR_PAD_LEFT);
-        } else {
-            $toReturn = $currentYear . '-' . str_pad($currentMonth, 2, 0, STR_PAD_LEFT) . '-' . str_pad($currentDay + $k, 2, 0, STR_PAD_LEFT);
-        }
-    }
-    return $toReturn;
-}
-
 function oc_checkWeekday($ocData, $weekday, $j, $k)
 {
-
-    $currentYear = date('Y', current_time('timestamp'));
 
     $toReturn = array(
         'dayIndex' => false,
@@ -188,30 +158,28 @@ function oc_checkWeekday($ocData, $weekday, $j, $k)
         'sun' => 'Sonntag');
 
     if (!isset($ocData['oc_closed_' . $weekday . '_' . $j]) || !isset( $ocData['oc_closed_' . $weekday . '_' . $j] )) {
-
-
-        $currentMonth = date('n', current_time('timestamp'));
-        $currentDay = date('j', current_time('timestamp'));
-
-        $openDate = oc_calcNextDate($currentYear, $currentMonth, $currentDay, $k);
+        // Calculates next calendar day.
+        $openDate = date('Y-m-d', strtotime(sprintf('%s + %d day', date('Y-m-d', current_time('timestamp')), $k)));
 
         if (!oc_checkHoliday($ocData, $openDate)) {
+            // Gets the weekday for next open day.
+            $openWeekday = array_keys($weekdays)[(int) date('N', strtotime($openDate)) - 1];
 
-            $fromHour1 = substr($ocData['oc_' . $weekday . '_from_' . $j . '_1'], 0, strpos($ocData['oc_' . $weekday . '_from_' . $j . '_1'], ':'));
-            $fromMinute1 = intval(substr($ocData['oc_' . $weekday . '_from_' . $j . '_1'], strpos($ocData['oc_' . $weekday . '_from_' . $j . '_1'], ':') + 1));
+            $fromHour1 = substr($ocData['oc_' . $openWeekday . '_from_' . $j . '_1'], 0, strpos($ocData['oc_' . $openWeekday . '_from_' . $j . '_1'], ':'));
+            $fromMinute1 = intval(substr($ocData['oc_' . $openWeekday . '_from_' . $j . '_1'], strpos($ocData['oc_' . $openWeekday . '_from_' . $j . '_1'], ':') + 1));
 
-            $fromHour2 = substr($ocData['oc_' . $weekday . '_from_' . $j . '_2'], 0, strpos($ocData['oc_' . $weekday . '_from_' . $j . '_2'], ':'));
-            $fromMinute2 = intval(substr($ocData['oc_' . $weekday . '_from_' . $j . '_2'], strpos($ocData['oc_' . $weekday . '_from_' . $j . '_2'], ':') + 1));
+            $fromHour2 = substr($ocData['oc_' . $openWeekday . '_from_' . $j . '_2'], 0, strpos($ocData['oc_' . $openWeekday . '_from_' . $j . '_2'], ':'));
+            $fromMinute2 = intval(substr($ocData['oc_' . $openWeekday . '_from_' . $j . '_2'], strpos($ocData['oc_' . $openWeekday . '_from_' . $j . '_2'], ':') + 1));
 
             if (is_numeric($fromHour1) && (!is_numeric($fromHour2) or $fromHour1 < $fromHour2 or $fromHour1 == $fromHour2 and $fromMinute1 <= $fromMinute2)) {
 
-                $toReturn['openTime'] = $ocData['oc_' . $weekday . '_from_' . $j . '_1'];
+                $toReturn['openTime'] = $ocData['oc_' . $openWeekday . '_from_' . $j . '_1'];
 
 
                 $toReturn['openDate'] = $openDate;
 
 
-                $toReturn['openDateString'] = $weekdays[$weekday];
+                $toReturn['openDateString'] = $weekdays[$openWeekday];
 
             } else if (is_numeric($fromHour2)) {
 
