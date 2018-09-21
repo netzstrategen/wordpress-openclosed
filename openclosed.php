@@ -1,14 +1,14 @@
 <?php
 /*
   Plugin Name: Open Closed
-  Version: 1.0.4
+  Version: 1.0.5
   Description: Show business opening hours and inform about next open day.
   Author: netzstrategen
   Author URI: https://netzstrategen.com
   License: GPL-2.0+
   License URI: http://www.gnu.org/licenses/gpl-2.0
 */
-defined("OC_VERSION")        or define('OC_VERSION', "1.0.4");
+defined("OC_VERSION")        or define('OC_VERSION', "1.0.5");
 defined("OC_PLUGIN_PATH")    or define('OC_PLUGIN_PATH', plugin_dir_path(__FILE__));
 defined("OC_PLUGIN_URL")     or define('OC_PLUGIN_URL', plugin_dir_url(__FILE__));
 defined("OC_PLUGIN_ESI_URL") or define('OC_PLUGIN_ESI_URL', str_replace('https', 'http', OC_PLUGIN_URL). 'views/esi/');

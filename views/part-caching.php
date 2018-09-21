@@ -1,6 +1,6 @@
 <?php
-$live = checked($ocData['oc_caching']['live'], 'cache', false);
-$longterm = checked($ocData['oc_caching']['longterm'], 'cache', false)
+$live = isset($ocData['oc_caching']['live']) ? checked($ocData['oc_caching']['live'], 'cache', false) : '';
+$longterm = isset($ocData['oc_caching']['longterm']) ? checked($ocData['oc_caching']['longterm'], 'cache', false) : '';
 ?>
 <div class="tab" id ="caching">
     <h3>Varnish / ESI</h3>
