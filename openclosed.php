@@ -13,6 +13,7 @@ defined("OC_PLUGIN_PATH")    or define('OC_PLUGIN_PATH', plugin_dir_path(__FILE_
 defined("OC_PLUGIN_URL")     or define('OC_PLUGIN_URL', plugin_dir_url(__FILE__));
 defined("OC_PLUGIN_ESI_URL") or define('OC_PLUGIN_ESI_URL', str_replace('https', 'http', OC_PLUGIN_URL). 'views/esi/');
 defined("OC_MAX_SHOPS_NUMBER") or define('OC_MAX_SHOPS_NUMBER', 12);
+defined("OC_MAX_EXTRA_DATES") or define('OC_MAX_EXTRA_DATES', 12);
 
 $plugin_key = 'openclosed';
 

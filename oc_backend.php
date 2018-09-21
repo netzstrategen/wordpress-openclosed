@@ -47,7 +47,7 @@ function oc_page_main() {
     } else {
         $shopId = 1;
     }
-    $allowedExtraDates = array(1, 2, 3, 4, 5);
+
     $days = array('-', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31);
     $weekdays = array(
         'mon' => 'Montag',
@@ -147,8 +147,7 @@ function oc_page_main() {
         /**
          * Special Day Handling starts here
          */
-        foreach ($allowedExtraDates as $extraDate) {
-
+        for ($extraDate = 1; $extraDate <= OC_MAX_EXTRA_DATES; $extraDate++) {
             $allowedValues[] = 'oc_special_days';
             $allowedValues[] = 'oc_extratime_from_' . $extraDate;
             $allowedValues[] = 'oc_extratime_until_' . $extraDate;
