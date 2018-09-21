@@ -6,7 +6,7 @@
     <div class="ui-helper-clearfix">
         <ul class="subsubsub">
             <?php
-            foreach ($allowedShopIds as $currentId) {
+            for ($currentId = 1; $currentId <= OC_MAX_SHOPS_NUMBER; $currentId++) {
                 $active = $currentId == $shopId ? ' class="current"' : '';
                 $shopname = (isset($ocData['oc_shopname']))? $ocData['oc_shopname'] : '';
 

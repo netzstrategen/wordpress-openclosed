@@ -4,8 +4,7 @@
  */
 add_action('init', 'oc_addShortcodes');
 function oc_addShortcodes() {
-    $allowedShopIds = array(1,2,3,4,5);
-    foreach ($allowedShopIds as $shopId) {
+    for ($shopId = 1; $shopId <= OC_MAX_SHOPS_NUMBER; $shopId++) {
         $ocDataRaw = get_option('oc_shop_'.$shopId);
         $ocData = unserialize($ocDataRaw);
         if (isset($ocData['oc_shortcode_'.$shopId]) && $ocData['oc_shortcode_'.$shopId] != '') {
@@ -30,9 +29,6 @@ function oc_addShortcodes() {
  * @return mixed|string
  */
 function oc_snippet($attr, $content=false, $code="") {
-
-    $allowedShopIds = array(1,2,3,4,5);
-
     $openText = '';
     $openLink = '';
     $openFrontendText = '';
@@ -46,7 +42,7 @@ function oc_snippet($attr, $content=false, $code="") {
     $normalDate = false;
 
     //for each awayible shop
-    foreach ($allowedShopIds as $shopId) {
+    for ($shopId = 1; $shopId <= OC_MAX_SHOPS_NUMBER; $shopId++) {
         //get the Shopdata
         $ocDataRaw = get_option('oc_shop_'.$shopId);
 
@@ -184,8 +180,6 @@ function oc_snippet($attr, $content=false, $code="") {
 function oc_sign($attr, $content=false, $code="") {
     global $default_image;
 
-    $allowedShopIds = array(1,2,3,4,5);
-
     $holiday = false;
     $extraDate = false;
     $normalDate = false;
@@ -193,7 +187,7 @@ function oc_sign($attr, $content=false, $code="") {
     $ocData = array();
 
     //for each awayible shop
-    foreach ($allowedShopIds as $shopId) {
+    for ($shopId = 1; $shopId <= OC_MAX_SHOPS_NUMBER; $shopId++) {
         //get the Shopdata
         $ocDataRaw = get_option('oc_shop_'.$shopId);
 
@@ -295,9 +289,7 @@ function oc_snippet_overview($attr, $content=false, $code="") {
 	
 	$toReturn = '';
 	
-	$allowedShopIds = array(1,2,3,4,5);
-	
-	foreach ($allowedShopIds as $shopId) {
+	for ($shopId = 1; $shopId <= OC_MAX_SHOPS_NUMBER; $shopId++) {
 		$ocDataRaw = get_option('oc_shop_'.$shopId);
 		$ocData = unserialize($ocDataRaw);
 		if ($ocData['oc_shortcode_'.$shopId].'_overview' == $code) {
@@ -327,9 +319,7 @@ function oc_snippet_overview_sommer($attr, $content=false, $code="") {
 	
 	$toReturn = '';
 	
-	$allowedShopIds = array(1,2,3,4,5);
-	
-	foreach ($allowedShopIds as $shopId) {
+	for ($shopId = 1; $shopId <= OC_MAX_SHOPS_NUMBER; $shopId++) {
 		$ocDataRaw = get_option('oc_shop_'.$shopId);
 		$ocData = unserialize($ocDataRaw);
 		if ($ocData['oc_shortcode_'.$shopId].'_overview_sommer' == $code) {
@@ -361,9 +351,7 @@ function oc_snippet_overview_winter($attr, $content=false, $code="") {
 	
 	$toReturn = '';
 	
-	$allowedShopIds = array(1,2,3,4,5);
-	
-	foreach ($allowedShopIds as $shopId) {
+	for ($shopId = 1; $shopId <= OC_MAX_SHOPS_NUMBER; $shopId++) {
 		$ocDataRaw = get_option('oc_shop_'.$shopId);
 		$ocData = unserialize($ocDataRaw);
 		if ($ocData['oc_shortcode_'.$shopId].'_overview_winter' == $code) {
