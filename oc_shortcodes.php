@@ -234,7 +234,7 @@ function oc_sign($attr, $content=false, $code="") {
         }
     }
 
-    if ( isset( $ocData['oc_images'][$sign_status] ) ) {
+    if ( !empty( $ocData['oc_images'][$sign_status] ) ) {
 
         if (! in_array($ocData['oc_images'][$sign_status], $default_image)){
             $sign_id = pippin_get_image_id($ocData['oc_images'][$sign_status]);
